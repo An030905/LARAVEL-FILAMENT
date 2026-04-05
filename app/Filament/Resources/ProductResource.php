@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources; // Đã sửa Namespace cho đúng vị trí mới
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\Pages\CreateProduct;
 use App\Filament\Resources\Pages\EditProduct;
@@ -12,20 +12,19 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms;
-use Filament\Schemas\Schema;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Grid;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    // Sửa lỗi Type hint cho icon
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $recordTitleAttribute = 'name';
@@ -56,9 +55,10 @@ class ProductResource extends Resource
                             ->required()
                             ->label('Slug (MSSV: 23810310263)')
                             ->readOnly(),
-                    ])->columns(2),
+                    ])
+                    ->columns(2),
 
-                Section::make('Chi tiết & Giá cả')
+                Section::make('Chi tiết và giá cả')
                     ->schema([
                         Forms\Components\RichEditor::make('description')
                             ->columnSpanFull()
@@ -92,7 +92,7 @@ class ProductResource extends Resource
                             ->image()
                             ->disk('public')
                             ->visibility('public')
-                            ->directory('sv23810310263-products')
+                            ->directory('23810310263-products')
                             ->label('Ảnh đại diện'),
 
                         Forms\Components\Select::make('status')
@@ -155,13 +155,11 @@ class ProductResource extends Resource
     }
 
     public static function getPages(): array
-{
-    return [
-        'index' => ListProducts::route('/'), // Xóa Pages\
-        'create' => CreateProduct::route('/create'), // Xóa Pages\
-        'edit' => EditProduct::route('/{record}/edit'), // Xóa Pages\
-    ];
+    {
+        return [
+            'index' => ListProducts::route('/'),
+            'create' => CreateProduct::route('/create'),
+            'edit' => EditProduct::route('/{record}/edit'),
+        ];
+    }
 }
-}
-
-

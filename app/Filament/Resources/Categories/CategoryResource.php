@@ -24,6 +24,8 @@ class CategoryResource extends Resource
 
     protected static ?string $slug = '23810310263-categories';
 
+    protected static ?string $navigationLabel = 'Danh mục';
+
     public static function form(Schema $schema): Schema
     {
         return CategoryForm::configure($schema);
@@ -36,9 +38,7 @@ class CategoryResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -50,5 +50,3 @@ class CategoryResource extends Resource
         ];
     }
 }
-
-
